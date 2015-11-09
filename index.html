@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+
+	<title>FadeMyScreen</title>
+
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		html, body {
+			overflow: hidden;
+			height: 100%;
+		}
+		body {
+			background: #000;
+		}
+		video {
+			width: 100%;
+			height: 100%;
+			cursor: none;
+		}
+		::-webkit-media-controls {
+			display: none !important;
+		}
+	</style>
+</head>
+<body>
+	<video id="video"></video>
+	<script>
+		function launchFullScreen(element) {
+			if(element.requestFullScreen) {
+				element.requestFullScreen();
+			} else if(element.mozRequestFullScreen) {
+				element.mozRequestFullScreen();
+			} else if(element.webkitRequestFullScreen) {
+				element.webkitRequestFullScreen();
+			}
+		}
+
+		function exitFullScreen(element) {
+			if(element.exitFullscreen) {
+				element.exitFullscreen();
+			} else if(element.mozCancelFullscreen) {
+				element.mozCancelFullscreen();
+			} else if(element.webkitExitFullscreen) {
+				element.webkitExitFullscreen();
+			}
+		}
+
+		// Launch fullscreen for browsers that support it
+		var fullscreen = false;
+		document.documentElement.addEventListener('click', function() {
+			if(fullscreen) {
+				fullscreen = false;
+				exitFullScreen(document.getElementById('video'));
+			} else {
+				fullscreen = true;
+				launchFullScreen(document.getElementById('video'));
+			}
+		});
+	</script>
+</body>
+</html>
